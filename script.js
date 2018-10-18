@@ -81,19 +81,37 @@ class Pokemon{
 function getRandomPokemon(){
 	// while(pokemon.length < counter+2){
 		var number = Math.floor(Math.random()*(151 - 1)+1);
+		var number2 = Math.floor(Math.random()*(151 - 1)+1);
 		if(usedPokemonNumber.includes(number)==true){
 			getRandomPokemon();
 		}else{
 			var poke = new Pokemon(number);
 			usedPokemonNumber.push(number);
 			pokemon.push(poke);
-			setTimeout(function(){getMysteryWord()},500);
+		}
+		if(usedPokemonNumber.includes(number2)==true){
+			
+		}else{
+			var poke2 = new Pokemon(number2);
+			usedPokemonNumber.push(number2);
+			pokemon.push(poke2);
+		}
+		if(pokemon.length>counter&&pokemon[counter].name!==undefined){
+			setTimeout(function(){getMysteryWord()},200);
+		}else if(pokemon.length>counter){
+			setTimeout(function(){getMysteryWord()},1000);
+		}else{
+			getRandomPokemon();
 		}
 }
 
 function startGame(){
 	mysteryWord.innerHTML = " ";
 	scored.innerHTML = " ";
+	progress.innerHTML = " "
+	hintArea.style.gridColumn = "1/3"
+	hintImg.style.gridColumn = "3/4"
+	hintImg.style.gridRow = "1/2"
 	hintArea.innerHTML = " ";
 	hintImg.style.height = "0"
 	hintImg.style.width = "0"
@@ -154,6 +172,11 @@ function getMysteryWord(){
 	for(let i = 0; i<displayWord.length;i++){
 		mysteryWord.innerHTML += " "+displayWord[i]+" ";
 	}
+	hintArea.style.fontSize = "1.5em";
+	hintArea.style.fontWeight = "bold"
+	hintArea.innerHTML = " ";
+	hintArea.innerHTML = "Pokemon Number: "+usedPokemonNumber[counter];
+	succeededGuessing==false;
 }
 
 function guessLetter(letter){
@@ -170,15 +193,12 @@ function guessLetter(letter){
 		health.value --;
 		health.content = "attr(value)"
 	}
-
 	guessed.innerHTML = guessedLetters.join(" ");
 	mysteryWord.innerHTML = " ";
 	for(let i = 0; i<pokemon[counter].name.length;i++){
 		mysteryWord.innerHTML += " "+displayWord[i]+" ";
 	}
-
 	if(displayWord.join("") == pokemon[counter].name){
-		counter++;
 		scored++;
 		guessedArea.innerHTML = " "+displayWord.join("")+" ";
 		mysteryWord.innerHTML = " ";
@@ -193,12 +213,24 @@ function guessLetter(letter){
 		hintArea.innerHTML = " ";
 		hintArea.innerHTML = " Congrats! You guessed Correctly. Here's the next pokemon!"
 		timer.innerHTML = " ";
-		hintImg.style.backgroundSize = "0 0";
 		correctLetters = [];
 		guessedLetters = [];
 		succeededGuessing = true;
-		getRandomPokemon();
+		hintImg.style.filter = "contrast(100%) brightness(100%)";
+		hintImg.style.backgroundImage = "url('"+pokemon[counter].image+"')";
+		hintImg.style.backgroundSize = "100% 100%";
+		hintImg.style.height = "150px";
+		hintImg.style.width = "150px";
+		hintImg.style.margin = "0 auto"
+		counter++;
+		setTimeout(function(){
+			hintImg.style.backgroundSize = "0 0";
+			getRandomPokemon();
+		},5000)
 		}
+	if(health.value == 0){
+		endGame();
+	}
 }
 
 function endGame(){
@@ -206,19 +238,15 @@ function endGame(){
 		mysteryWord.innerHTML = "Game Over!"
 		var newDiv = document.createElement("DIV");
 		newDiv.innerHTML = "Your score is "
-		score += health.value;
 		if(userPotion==1){
-			score+=40;
+			scored = 5+ scored;
 		}
-		newDiv.innerHTML += score;
+		newDiv.innerHTML += scored;
 		mysteryWord.appendChild(newDiv);
 }
 
 function getHint(){
-	hintArea.style.fontSize = "1.5em"
-	hintArea.style.fontWeight = "bold"
 	if(getHintCounter==0){
-		hintArea.innerHTML = " ";
 		var type = document.createElement("DIV");
 		type.innerHTML = "Type: " + pokemon[counter].types+". ";
 		hintArea.appendChild(type)
@@ -237,24 +265,30 @@ function getHint(){
 		var secondHintCounter = counter;
 		timeAfterLastHint = 10;
 		timer.innerHTML = timeAfterLastHint;
+		progress.appendChild(timer)
 		getHintCounter++;
+		hintTimer();
+	}
+}
+function hintTimer(){
 		var x = setInterval(function(){
 			if(timeAfterLastHint!==0&&succeededGuessing==true){
 				clearInterval(x)
 			}else if(timeAfterLastHint==0&&health.value==0){
 				clearInterval(x);
 				endGame();
+			}else if(timer.innerHTML=""){
+				clearInterval(x)
 			}else if(timeAfterLastHint!==0){
 				timeAfterLastHint--;
 				timer.innerHTML = timeAfterLastHint;
 			}else{
 				health.value--;
 				timeAfterLastHint = 10;
+				timer.innerHTML = timeAfterLastHint;
 			}
 		}, 1000)
-	}
 }
-
 start.addEventListener('click', function(){
 	startGame();
 })
