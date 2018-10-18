@@ -5,34 +5,40 @@
   height: 150px;
   width: 150px;
   grid-row: 1/2;
-  grid-column: 3/4; }
+  grid-column: 3/4;
+  position: absolute;
+  right: 16vw; }
 
 #wrapper {
   display: grid;
-  grid-template-rows: 1fr .8fr .4fr;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 253px 1fr 2fr .1fr;
+  grid-template-columns: 1fr 2fr 1fr;
   height: 99vh;
   text-align: center;
-  grid-row-gap: 5%; }
+  grid-row-gap: 5%;
+  position: relative; }
 
 #inputs {
-  grid-row: 3/4;
+  grid-row: 4/5;
   grid-column: 2/3; }
 
 #start {
-  grid-row: 3/4;
+  grid-row: 4/5;
   grid-column: 1/2; }
 
+.box {
+  margin: 9% 0%; }
+
 #hint {
-  grid-row: 3/4;
+  grid-row: 4/5;
   grid-column: 3/4; }
 
 #hintArea {
   grid-row: 1/2;
   grid-column: 1/4;
-  background-color: lightgrey;
+  background-color: #CCFAF1;
   border: 1px solid;
-  border-radius: 10%; }
+  padding-top: 10%; }
 
 #guess {
   grid-row: 2/3;
@@ -45,14 +51,38 @@
   margin-top: 5%; }
 
 #mysteryWord {
-  grid-row: 2/3;
-  grid-column: 2/3; }
+  font-size: 1.4em;
+  font-weight: bold; }
+
+#done {
+  height: 25px;
+  width: 80px; }
+
+#health {
+  position: absolute;
+  top: 86vh;
+  right: 4vw; }
 
 #health:before {
   content: "Attempts left: " attr(value); }
+
+#potion {
+  margin: 30% auto 0% auto; }
 
 @media only screen and (max-width: 426px) {
   #mysteryWord {
     font-size: 1em; }
   #hintArea {
     font-size: 1.1em; } }
+
+@media only screen and (min-width: 735px) {
+  #hintArea {
+    padding: 5%; }
+  #potion {
+    margin: 20% auto 0% auto; } }
+
+@keyframes timerAni {
+  from {
+    font-size: 1em; }
+  to {
+    font-size: 1.5em; } }
