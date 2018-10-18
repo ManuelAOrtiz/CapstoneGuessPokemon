@@ -124,6 +124,8 @@ function startGame(){
 	score.style.height = "0"
 	score.style.height = "0"
 	wrapper.style.height = "104vh"
+	pokemon = []
+	usedPokemonNumber = [];
 	preStartGameStep1();
 }
 function startActualGame(){
@@ -283,7 +285,7 @@ function getHint(){
 		hintArea.appendChild(type)
 		var entry = document.createElement("DIV");
 		entry.innerHTML = pokemon[counter].flavorText;
-		entry.style.fontSize = ".9em";
+		entry.style.fontSize = ".8em";
 		hintArea.appendChild(entry);
 		getHintCounter++;
 	}else if(getHintCounter==1){
@@ -363,6 +365,9 @@ function preStartGameStep1(){
 	mysteryWord.style.display = "grid"
 	mysteryWord.style.gridTemplateRows = "1fr 1fr 1fr"
 	mysteryWord.style.gridTemplateColumns = "1fr 1fr 1fr 1fr"
+	hintArea.style.fontSize = "1.5em";
+	hintArea.style.fontWeight = "bold";
+	hintArea.innerHTML = "Pick what generation you want for your game"
 	for(let i = 0; i<7;i++){
 
 		var check = document.createElement("INPUT");
@@ -417,7 +422,21 @@ function checkGenStuff(){
 
 function randomNumberMaker(){
 	var number = Math.floor(Math.random()*6);
-	if(number == 6){
+	if(gen1 ==true&&gen2==false&&gen3==false&&gen4==false&&gen5==false&&gen6==false&&gen7==false){
+		return 0;
+	}else if(gen1 ==false&&gen2==true&&gen3==false&&gen4==false&&gen5==false&&gen6==false&&gen7==false){
+		return 1;
+	}else if(gen1 ==false&&gen2==false&&gen3==true&&gen4==false&&gen5==false&&gen6==false&&gen7==false){
+		return 2;
+	}else if(gen1 ==false&&gen2==false&&gen3==false&&gen4==true&&gen5==false&&gen6==false&&gen7==false){
+		return 3;
+	}else if(gen1 ==false&&gen2==false&&gen3==false&&gen4==false&&gen5==true&&gen6==false&&gen7==false){
+		return 4;
+	}else if(gen1 ==false&&gen2==false&&gen3==false&&gen4==false&&gen5==false&&gen6==true&&gen7==false){
+		return 5;
+	}else  if(gen1 ==false&&gen2==false&&gen3==false&&gen4==false&&gen5==false&&gen6==false&&gen7==true){
+		return 7;
+	}else if(number == 6){
 		if(gen7==true){
 			return number;
 		}else{
