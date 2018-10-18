@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pokemon Guessing Game</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div id="wrapper">
+		<button id="start">Start New Game</button>
+		<div id="inputs">
+			<input type="text" id="letter" maxlength="1">
+			<input type="submit" id="submit">
+		</div>
+		
+		<button id="hint">Get Hint!</button>
+			<div id="hintArea">
+				<h2>Guess That Pokemon! </h2>
+				<h3>Use a potion for extra attempts at the lost of points at the end.</h3>
+				<h3>When the image hint appears. There will be 10 second timer for you to answer or lose 1 attempt.</h3>
+				<h2> Good luck!</h2>
+			</div>
+			<div id="hintImg"></div>
+		<div id="score">
+			<h2 id="guessedArea"></h2>
+			<div id="guessed"></div>
+			<div id="userScore"></div>
+		</div>
+		<h1 id="mysteryWord"></h1>
+		<div id="progress">
+		<!-- <progress id="health" value="100" max="100"></progress> -->
+	</div>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
