@@ -26,6 +26,13 @@ var getHintCounter = 0;
 var timeAfterLastHint = 0;
 var succeededGuessing = false;
 var scored = 0;
+var gen1 = false;
+var gen2 = false;
+var gen3 = false;
+var gen4 = false;
+var gen5 = false;
+var gen6 = false;
+var gen7 = false;
 
 class Pokemon{
 	constructor(num){
@@ -79,9 +86,24 @@ class Pokemon{
 
 
 function getRandomPokemon(){
-	// while(pokemon.length < counter+2){
-		var number = Math.floor(Math.random()*(151 - 1)+1);
-		var number2 = Math.floor(Math.random()*(151 - 1)+1);
+		var number = randomNumberMaker();
+		if(number==6){
+			number= Math.floor(Math.random()*(807-722)+722)
+		}else if(number==5){
+			number= Math.floor(Math.random()*(721-650)+650);
+		}else if(number==4){
+			number= Math.floor(Math.random()*(649-494)+494);
+		}else if(number==3){
+			number= Math.floor(Math.random()*(493-387)+387);
+		}else if(number==2){
+			number= Math.floor(Math.random()*(386-252)+252);
+		}else if(number==1){
+			number= Math.floor(Math.random()*(251-152)+152);
+		}else{
+			number= Math.floor(Math.random()*(151-1)+1);
+		}
+
+
 		if(usedPokemonNumber.includes(number)==true){
 			getRandomPokemon();
 		}else{
@@ -89,32 +111,43 @@ function getRandomPokemon(){
 			usedPokemonNumber.push(number);
 			pokemon.push(poke);
 		}
-		if(usedPokemonNumber.includes(number2)==true){
-			
-		}else{
-			var poke2 = new Pokemon(number2);
-			usedPokemonNumber.push(number2);
-			pokemon.push(poke2);
-		}
-		if(pokemon.length>counter&&pokemon[counter].name!==undefined){
-			setTimeout(function(){getMysteryWord()},200);
-		}else if(pokemon.length>counter){
-			setTimeout(function(){getMysteryWord()},1000);
-		}else{
-			getRandomPokemon();
-		}
+		setTimeout(function(){
+			getMysteryWord()
+		},1000) 
 }
-
 function startGame(){
 	mysteryWord.innerHTML = " ";
 	scored.innerHTML = " ";
 	progress.innerHTML = " "
+	progress.style.height = "0"
+	progress.style.width = "0"
+	score.style.height = "0"
+	score.style.height = "0"
+	wrapper.style.height = "104vh"
+	pokemon = []
+	usedPokemonNumber = [];
+	preStartGameStep1();
+}
+function startActualGame(){
+	mysteryWord.innerHTML = " "
+	wrapper.style.height = "99vh"
+	mysteryWord.style.gridRow = "2/3"
+	mysteryWord.style.gridColumn = "2/3"
 	hintArea.style.gridColumn = "1/3"
 	hintImg.style.gridColumn = "3/4"
 	hintImg.style.gridRow = "1/2"
 	hintArea.innerHTML = " ";
 	hintImg.style.height = "0"
 	hintImg.style.width = "0"
+	progress.style.height = "auto"
+	progress.style.width = "auto"
+	score.style.height = "auto"
+	score.style.height = "auto"
+	score.style.gridRow = "2/3"
+	score.style.gridColumn = "1/2"
+	progress.style.gridRow = "2/3";
+	progress.style.gridColumn = "3/4";
+	mysteryWord.style.display = "inline"
 	pokemon = [];
 	progress.appendChild(potion);
 	getRandomPokemon();
@@ -252,7 +285,7 @@ function getHint(){
 		hintArea.appendChild(type)
 		var entry = document.createElement("DIV");
 		entry.innerHTML = pokemon[counter].flavorText;
-		entry.style.fontSize = ".9em";
+		entry.style.fontSize = ".8em";
 		hintArea.appendChild(entry);
 		getHintCounter++;
 	}else if(getHintCounter==1){
@@ -316,3 +349,134 @@ document.addEventListener('keypress',function(e){
 		letter.value = "";
 	}
 })
+
+mysteryWord.addEventListener('click', function(e){
+	if(e.target.id == "done"){
+		checkGenStuff();
+		startActualGame();
+	}
+})
+
+
+function preStartGameStep1(){
+	mysteryWord.innerHTML = " ";
+	mysteryWord.style.gridColumn = "2/4";
+	mysteryWord.style.gridRow = "2/3";
+	mysteryWord.style.display = "grid"
+	mysteryWord.style.gridTemplateRows = "1fr 1fr 1fr"
+	mysteryWord.style.gridTemplateColumns = "1fr 1fr 1fr 1fr"
+	hintArea.style.fontSize = "1.5em";
+	hintArea.style.fontWeight = "bold";
+	hintArea.innerHTML = "Pick what generation you want for your game"
+	for(let i = 0; i<7;i++){
+
+		var check = document.createElement("INPUT");
+		check.type = "checkbox";
+		check.name = "generation";
+		check.value = "value";
+		check.id = "box"+(i+1);		
+		var label = document.createElement("label");
+		label.htmlFor = "box"+(i+1);
+		label.appendChild(document.createTextNode("gen"+(i+1)));
+		mysteryWord.appendChild(label);
+		mysteryWord.appendChild(check);
+	}
+
+	var button = document.createElement("BUTTON");
+	button.innerHTML = "done";
+	button.id = "done";
+	mysteryWord.appendChild(button);
+
+}
+function checkGenStuff(){
+	var box1 = document.getElementById("box1");
+	var box2 = document.getElementById("box2");
+	var box3 = document.getElementById("box3");
+	var box4 = document.getElementById("box4");
+	var box5 = document.getElementById("box5");
+	var box6 = document.getElementById("box6");
+	var box7 = document.getElementById("box7");
+
+	if(box1.checked==true){
+		gen1 = true;
+	}
+	if(box2.checked==true){
+		gen2 = true;
+	}
+	if(box3.checked==true){
+		gen3 = true;
+	}
+	if(box4.checked==true){
+		gen4 = true;
+	}
+	if(box5.checked==true){
+		gen5 = true;
+	}
+	if(box6.checked==true){
+		gen6 = true;
+	}
+	if(box7.checked==true){
+		gen7 = true;
+	}
+}
+
+function randomNumberMaker(){
+	var number = Math.floor(Math.random()*6);
+	if(gen1 ==true&&gen2==false&&gen3==false&&gen4==false&&gen5==false&&gen6==false&&gen7==false){
+		return 0;
+	}else if(gen1 ==false&&gen2==true&&gen3==false&&gen4==false&&gen5==false&&gen6==false&&gen7==false){
+		return 1;
+	}else if(gen1 ==false&&gen2==false&&gen3==true&&gen4==false&&gen5==false&&gen6==false&&gen7==false){
+		return 2;
+	}else if(gen1 ==false&&gen2==false&&gen3==false&&gen4==true&&gen5==false&&gen6==false&&gen7==false){
+		return 3;
+	}else if(gen1 ==false&&gen2==false&&gen3==false&&gen4==false&&gen5==true&&gen6==false&&gen7==false){
+		return 4;
+	}else if(gen1 ==false&&gen2==false&&gen3==false&&gen4==false&&gen5==false&&gen6==true&&gen7==false){
+		return 5;
+	}else  if(gen1 ==false&&gen2==false&&gen3==false&&gen4==false&&gen5==false&&gen6==false&&gen7==true){
+		return 7;
+	}else if(number == 6){
+		if(gen7==true){
+			return number;
+		}else{
+			randomNumberMaker()
+		}
+	}else if(number == 5){
+		if(gen6==true){
+			return number;
+		}else{
+			randomNumberMaker()
+		}
+	}else if(number == 4){
+		if(gen5==true){
+			return number;
+		}else{
+			randomNumberMaker()
+		}
+	}else if(number == 3){
+		if(gen4==true){
+			return number;
+		}else{
+			randomNumberMaker()
+		}
+	}else if(number == 2){
+		if(gen3==true){
+			return number;
+		}else{
+			randomNumberMaker()
+		}
+	}else if(number == 1){
+		if(gen2==true){
+			return number;
+		}else{
+			randomNumberMaker()
+		}
+	}else{
+		if(gen1==true){
+			return number;
+		}else{
+			randomNumberMaker()
+		}
+	}
+}
