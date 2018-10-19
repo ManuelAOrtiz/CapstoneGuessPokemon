@@ -1,5 +1,6 @@
 *{
 	margin: 0;
+	font-family: 'Taviraj', serif;
 }
 #hintImg{
 	height:150px;
@@ -7,7 +8,6 @@
 	grid-row: 1/2;
 	grid-column: 3/4;
     position: absolute;
-    right: 16vw;
 }
 #wrapper{
 	display:grid;
@@ -22,12 +22,16 @@
 	grid-row: 4/5;
 	grid-column: 2/3
 }
+#potion{
+	height:150px;
+	width:150px;
+}
 #start{
 	grid-row: 4/5;
 	grid-column:1/2;
 }
 .box{
-	margin: 9% 0%;
+
 }
 #hint{
 	grid-row: 4/5;
@@ -38,7 +42,7 @@
 	grid-column: 1/4;
 	background-color: #CCFAF1;
 	border: 1px solid;
-	padding-top: 10%;
+
 }
 #guess{
 	grid-row: 2/3;
@@ -62,31 +66,121 @@
 #health
 {
 	position: absolute;
-    top: 86vh;
+    top: 85vh;
     right: 4vw;
 }
 
 #health:before {
   content: 'Attempts left: ' attr(value);
 }
-#potion{
-	margin :30% auto 0% auto;
-}
 @media only screen and (max-width: 426px){
 	#mysteryWord{
 		font-size: 1em;
 	}
 	#hintArea{
-		font-size: 1.1em;
+		font-size: .9em;
+		padding-top:1%;
+	}
+	#hintImg{
+		left:2vw;
+	}
+	#guessedArea{
+		font-size:0;
+	}
+	.box{
+		margin-top:20%;
+	}
+	#health{
+		height:4%;
+	}
+	.box{
+		margin-top:56%;
+	}	
+}
+@media only screen and (min-width: 427px){
+	#hintArea{
+		padding-top: 10%;
+	}
+	#health{
+		height:4%;
+	}
+}
+@media only screen and (min-width:427px) and (max-width:769px){
+	#hintImg{
+	    right: 16vw;
+	}
+	.box{
+		margin-top:56%;
+	}
+	#potion{
+		margin:20% 17% 0% auto;
+	}	
+} 
+@media only screen and (min-width:1104px) and (max-width:1441px){
+	#hintImg{
+	    right: 16vw;
+	}
+	.box{
+		margin-top:38%;
+	}
+	#potion{
+		margin:15vh 0 21% 34%;
+	}	
+}
+@media only screen and (max-width:426px){
+	#timer{
+		margin:8vh 22% 0 0;
+	}
+}
+@media only screen and (min-width:426px) and (max-width:660px){
+	#timer{
+		margin:25vh 22% 0 0;
+	}
+}
+@media only screen and (min-width:660px) and (max-width:860px){
+	#timer{
+		margin:23vh 3% 0 0;
+	}
+}
+@media only screen and (min-width:860px) and (max-width:1180px){
+	#timer{
+		margin:21vh 0 0 17%;
+	}
+}
+@media only screen and (min-width:1180px) and (max-width:1441px){
+	#timer{
+		margin:11vh 0 0 17%;
+	}
+}
+@media only screen and (min-width:1442px){
+	.box{
+		margin-top:38%;
+	}	
+	#hintImg{
+	    right: 21vw;
+	}
+	#potion{
+		margin:20% 0 0% 42%;
+	}
+	#timer{
+		margin-left:24%;
+	}
+}
+@media only screen and (min-width: 735px) and (max-width:1105px){
+	#hintImg{
+	    right: 16vw;
+	}
+	.box{
+		margin-top:53%;
+	}	
+	#potion{
+		margin:20% auto 0% auto;
 	}
 }
 @media only screen and (min-width: 735px){
 	#hintArea{
 		padding: 5%;
-	}
-	#potion{
-	margin :20% auto 0% auto;
-	}
+	}	
 }
 
 @keyframes timerAni{
