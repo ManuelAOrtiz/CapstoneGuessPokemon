@@ -25,6 +25,7 @@ var timeAfterLastHint = 0;
 var succeededGuessing = false;
 var guessedLetters =[];
 var scored = 0;
+var gameOver = false;
 var gen1 = false;
 var gen2 = false;
 var gen3 = false;
@@ -143,8 +144,22 @@ function startActualGame(){
 	hintImg.style.width = "200px"
 	hintImg.style.backgroundSize = "0 0"
 	mysteryWord.style.position= "absolute";
-    mysteryWord.style.top = "20vh";
-    mysteryWord.style.left= "20vw";
+	if(window.innerWidth<427){
+		mysteryWord.style.top = "21vh";
+   		mysteryWord.style.left= "6vw";
+	}else if(window.innerWidth>426&&window.innerWidth<769){
+		mysteryWord.style.top = "17vh";
+    	mysteryWord.style.left= "15vw";	
+	}else if(window.innerWidth>768&&window.innerWidth<1025){
+		mysteryWord.style.top = "20vh";
+    	mysteryWord.style.left= "19vw";	
+	}else if(window.innerWidth>1024&&window.innerWidth<1441){
+		mysteryWord.style.top = "20vh";
+    	mysteryWord.style.left= "21vw";	
+	}else{
+		mysteryWord.style.top = "17vh";
+    	mysteryWord.style.left= "19vw";	
+	}
 	progress.style.height = "auto"
 	progress.style.width = "auto"
 	score.style.height = "auto"
@@ -164,32 +179,29 @@ function startActualGame(){
 	progress.appendChild(hpBar);
 	progress.appendChild(potion);
 	userScore.innerHTML = "Your score is: "+scored
-	var screenSize = window.window.visualViewport.width;
-	if(screenSize>425){
-		
-	}
 }
 
 function makePotion(){
 	potion.style.backgroundImage = "url('images/Potion.png')";
-	potion.style.height = "150px";
-	potion.style.width = "150px";
 	potion.style.backgroundSize = "100% 100%";
 }
 function usePotion(){
-	if(health.value<10&&userPotion>0) {
-		var potion = document.getElementById("potion");
-		userPotion--;
-		if(userPotion==0){
+	if(gameOver==false){
+		if(health.value<10&&userPotion>0) {
 			var potion = document.getElementById("potion");
-			potion.style.backgroundSize = "0 0"
+			userPotion--;
+			if(userPotion==0){
+				var potion = document.getElementById("potion");
+				potion.style.backgroundSize = "0 0"
+			}
+		}
+		if(health.value<8){
+			health.value +=2;
+		}else{
+			health.value = 10;
 		}
 	}
-	if(health.value<8){
-		health.value +=2;
-	}else{
-		health.value = 10;
-	}
+
 }
 
 function getMysteryWord(){
@@ -235,6 +247,9 @@ function guessLetter(letter){
 	if(displayWord.join("") == pokemon[counter].name){
 		scored++;
 		guessedArea.innerHTML = " "+displayWord.join("")+" ";
+		if(window.innerWidth<427){
+			guessedArea.fontSize = "0";
+		}
 		mysteryWord.innerHTML = " ";
 		userScore.innerHTML = "Your score is: "+scored
 		if(scored%5==0){
@@ -332,6 +347,8 @@ function hintTimer(){
 	// 	animation-name: timer;
 	// animation-duration: 2s;
 	// animation-iteration-count: infinite;
+	timer.style.fontWeight = "bolder";
+	timer.style.fontSize = "1.1em";
 		var x = setInterval(function(){
 			if(timeAfterLastHint!==0&&succeededGuessing==true){
 				clearInterval(x)
@@ -511,6 +528,10 @@ document.addEventListener('keypress',function(e){
 mysteryWord.addEventListener('click', function(e){
 	if(e.target.id == "done"){
 		checkGenStuff();
-		startActualGame();
+		if(gen1==true||gen2==true||gen3==true||gen4==true||gen5==true||gen6==true||gen7==true){
+			startActualGame();
+		}else{
+			hintArea.innerHTML="Please select one of the checkboxes below to proceed."
+		}
 	}
 })
