@@ -359,6 +359,8 @@ function hintTimer(){
 				endGame();
 			}else if(timer.innerHTML=""){
 				clearInterval(x)
+			}else if(gameOver==true){
+				clearInterval(x)
 			}else if(timeAfterLastHint!==0){
 				timeAfterLastHint--;
 				timer.innerHTML = timeAfterLastHint;
