@@ -129,6 +129,7 @@ function startGame(){
 	hintImg.style.backgroundSize = "0 0"
 	pokemon = []
 	usedPokemonNumber = [];
+	gameOver = false;
 	preStartGameStep1();
 }
 function startActualGame(){
@@ -308,6 +309,7 @@ function endGame(){
 
 
 	mysteryWord.innerHTML = "Game Over!"
+	gameOver = true;
 	var newDiv = document.createElement("DIV");
 	newDiv.innerHTML = "Your score is "
 	if(userPotion==1){
