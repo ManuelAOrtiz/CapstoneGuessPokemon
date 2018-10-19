@@ -24,4 +24,6 @@ In the beginning is a potion that will restore 2 attempts up to a maximum of 10.
 
 When you are out of attempts, your score will be calculated by how many generations of pokemon involved, how many you had correct, and if you had a potion still left.
 
+When you hit hint you'll be given a pokedex entry for that pokemon on the first go around as well as the pokemon type. On the second hint, you'll be shown a picture of the pokemon and every 10 seconds after you'll lose an attempt until you solve it.
+
 Good luck!
